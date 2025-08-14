@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\three-tier architecture.DAL\three-tier architecture.DAL.csproj" />
   </ItemGroup>
 
 </Project>
