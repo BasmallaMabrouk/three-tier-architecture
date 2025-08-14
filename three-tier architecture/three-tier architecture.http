@@ -1,0 +1,6 @@
+@three_tier_architecture_HostAddress = http://localhost:5245
+
+GET {{three_tier_architecture_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
