@@ -15,11 +15,12 @@ namespace three_tier_architecture.Controllers
             _employeeService = employeeService;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetAll(int pageNumber = 1, int pageSize = 10, string sortColumn = "Id", string sortOrder = "asc")
         {
-            var employees = _employeeService.GetAll();
+            var employees = _employeeService.GetAll(pageNumber, pageSize, sortColumn, sortOrder);
             return Ok(employees);
         }
+
         [HttpGet("{id}")]
         public IActionResult get(int id)
         {

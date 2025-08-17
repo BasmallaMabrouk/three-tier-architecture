@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using three_tier_architecture.DAL.Repositories.IRepositories;
 using three_tier_architecture.Models;
 using three_tier_architecture.DAL.ApplicaionDbContext;
+using Microsoft.EntityFrameworkCore;
 namespace three_tier_architecture.DAL.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
         private readonly ApplicationDbContext _context;
-        public EmployeeRepository(ApplicationDbContext context)
+        public EmployeeRepository(ApplicationDbContext context) : base (context)
         {
             _context = context; 
         }
@@ -32,11 +33,22 @@ namespace three_tier_architecture.DAL.Repositories
             
         }
 
-        public IEnumerable<Employee> GetAll()
+        public IEnumerable<Employee> GetAll(int pageNumber, int pageSize, string sortColumn, string sortOrder)
         {
-          return  _context.Employees.ToList();
+            var query = _context.Employees.AsQueryable();
 
+            // Sorting
+            query = sortOrder.ToLower() == "desc"
+                ? query.OrderByDescending(e => EF.Property<object>(e, sortColumn))
+                : query.OrderBy(e => EF.Property<object>(e, sortColumn));
+
+            // Pagination
+            return query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
+
 
         public Employee GetById(int id)
         {

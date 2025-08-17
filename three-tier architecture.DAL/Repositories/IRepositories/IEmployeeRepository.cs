@@ -9,7 +9,7 @@ namespace three_tier_architecture.DAL.Repositories.IRepositories
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetAll();
+        IEnumerable<Employee> GetAll(int pageNumber, int pageSize, string sortColumn, string sortOrder);
         Employee GetById(int id);
         void Add(Employee employee);
         void Update(Employee employee);

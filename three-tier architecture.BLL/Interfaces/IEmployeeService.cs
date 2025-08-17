@@ -9,7 +9,7 @@ namespace three_tier_architecture.BLL.Interfaces
 {
     public interface IEmployeeService
     {
-        IEnumerable<Employee>GetAll();
+        IEnumerable<Employee>GetAll(int pageNumber, int pageSize, string sortColumn, string sortOrder);
         Employee GetById(int id);
         void CreateEmployee(Employee employee);
         void UpdateEmployee(Employee employee);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,9 +35,12 @@ namespace three_tier_architecture.BLL.Services
             _employeeRepository.Delete(id);
         }
 
-        public IEnumerable<Employee> GetAll()
+        public IEnumerable<Employee> GetAll(int pageNumber, int pageSize, string sortColumn, string sortOrder)
         {
-         return  _employeeRepository.GetAll();
+            if (pageSize > 100) pageSize = 100;
+            if (string.IsNullOrEmpty(sortColumn)) sortColumn = "Id";
+
+            return _employeeRepository.GetAll(pageNumber, pageSize, sortColumn, sortOrder);
         }
 
         public Employee GetById(int id)
